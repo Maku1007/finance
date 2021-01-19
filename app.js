@@ -51,7 +51,26 @@ var uiController = (function () {
       var unuudur = new Date();
 
       document.querySelector(DOMstrings.dateLabel).textContent =
-        unuudur.getFullYear() + " оны " + unuudur.getMonth() + " сарын ";
+        unuudur.getFullYear() +
+        " оны " +
+        (unuudur.getMonth() + 1) +
+        "-р сарын ";
+    },
+
+    changeType: function () {
+      var fields = document.querySelectorAll(
+        DOMstrings.inputType +
+          ", " +
+          DOMstrings.inputDescription +
+          ", " +
+          DOMstrings.inputValue
+      );
+
+      nodeListForeach(fields, function (el) {
+        el.classList.toggle("red-focus");
+      });
+      document.querySelector(DOMstrings.addBtn).classList.toggle("red");
+      // location = "http://1234.mn/course";
     },
 
     getInput: function () {
@@ -335,6 +354,10 @@ var appController = (function (uiController, financeController) {
         ctrlAddItem();
       }
     });
+
+    document
+      .querySelector(DOM.inputType)
+      .addEventListener("change", uiController.changeType);
 
     document
       .querySelector(DOM.containerDiv)
